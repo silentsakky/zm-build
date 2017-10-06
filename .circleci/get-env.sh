@@ -19,7 +19,3 @@ export ZIMBRA_CI_GIT_DEFAULT_BRANCH="${ZIMBRA_CI_GIT_DEFAULT_BRANCH-$CIRCLE_BRAN
 export ENV_ENABLE_ARCHIVE_ZIMBRA_FOSS=1
 export ENV_RESUME_FLAG=1
 export ENV_GIT_UPDATE_INCLUDE=@
-
-export ZIMBRA_CI_OVERRIDES="--git-overrides=zm-web-client.branch=feature/universal-ui"
-export ZIMBRA_CI_OVERRIDES="--git-overrides=zm-ajax.branch=feature/universal-ui"
-export ZIMBRA_CI_OVERRIDES="--git-overrides=zm-zimlets.branch=feature/universal-ui"
