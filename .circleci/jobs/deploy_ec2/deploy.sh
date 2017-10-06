@@ -3,36 +3,36 @@
 set -euo pipefail
 
 [ -d .circleci ] || exit 1
-[ "$APP1_SSH_USER" ] || exit 1;
-[ "$APP1_SSH_HOST" ] || exit 1;
-[ "$APP1_ADMIN_PASS" ] || exit 1;
+#[ "$APP1_SSH_USER" ] || exit 1;
+#[ "$APP1_SSH_HOST" ] || exit 1;
+#[ "$APP1_ADMIN_PASS" ] || exit 1;
 
-source .circleci/get-env.sh;
+#source .circleci/get-env.sh;
 
-SSH_OPTS=(
-   "-o" "UserKnownHostsFile=/dev/null"
-   "-o" "StrictHostKeyChecking=no"
-   "-o" "CheckHostIP=no"
-   "-o" "ServerAliveInterval=100"
-)
+#SSH_OPTS=(
+#   "-o" "UserKnownHostsFile=/dev/null"
+#   "-o" "StrictHostKeyChecking=no"
+#   "-o" "CheckHostIP=no"
+#   "-o" "ServerAliveInterval=100"
+#)
 
-Rsync()
-{
-   rsync -e "ssh ${SSH_OPTS[*]}" "$@"
-}
+#Rsync()
+#{
+#   rsync -e "ssh ${SSH_OPTS[*]}" "$@"
+#}
 
-Ssh()
-{
-   ssh "${SSH_OPTS[@]}" "$@"
-}
+#Ssh()
+#{
+#   ssh "${SSH_OPTS[@]}" "$@"
+#}
 
-DIR=$(echo ../BUILDS/UBUNTU16_64* | head -1); [ -d "$DIR" ] || exit 1;
+#DIR=$(echo ../BUILDS/UBUNTU16_64* | head -1); [ -d "$DIR" ] || exit 1;
 
 #Rsync --delete -avz ~/zm-build "$APP1_SSH_USER@$APP1_SSH_HOST:"
-Rsync --delete -avz "$DIR/" "$APP1_SSH_USER@$APP1_SSH_HOST:BUILD/"
-Rsync .circleci/jobs/deploy_ec2/upgrade.conf.in "$APP1_SSH_USER@$APP1_SSH_HOST:BUILD/upgrade.conf.in"
+#Rsync --delete -avz "$DIR/" "$APP1_SSH_USER@$APP1_SSH_HOST:BUILD/"
+#Rsync .circleci/jobs/deploy_ec2/upgrade.conf.in "$APP1_SSH_USER@$APP1_SSH_HOST:BUILD/upgrade.conf.in"
 
-Ssh "$APP1_SSH_USER@$APP1_SSH_HOST" -- "DOMAIN_NAME=$APP1_SSH_HOST" "ADMIN_PASS=$APP1_ADMIN_PASS" bash -s <<"SCRIPT_EOM"
+#Ssh "$APP1_SSH_USER@$APP1_SSH_HOST" -- "DOMAIN_NAME=$APP1_SSH_HOST" "ADMIN_PASS=$APP1_ADMIN_PASS" bash -s <<"SCRIPT_EOM"
 set -euxo pipefail
 
 echo -----------------------------------
@@ -84,7 +84,7 @@ sed -e "s/template_resolv/$RESOLVE/" \
     -e "s/template_hostname/$HOSTNAME/" \
     -e "s/template_domainname/$DOMAIN_NAME/" \
     -e "s/template_admin_pass/$ADMIN_PASS/g" \
- ~/BUILD/upgrade.conf.in > ~/WDIR/upgrade.conf
+ .circleci/jobs/deploy_ec2/upgrade.conf.in > ~/WDIR/upgrade.conf
 
 echo -----------------------------------
 echo Setup local archives
