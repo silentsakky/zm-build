@@ -130,7 +130,7 @@ jobs:
          - image: zimbra/zm-base-os:core-ubuntu
       <<: *deploy_s3_job_steps
 
-   deploy_ec2@app1:
+   deploy_ec2:
       working_directory: ~/zm-build
       shell: /bin/bash -eo pipefail
       docker:
@@ -144,3 +144,6 @@ workflows:
    build_and_deploy:
       jobs:
          - build_u16
+         - deploy_ec2:
+            requires:
+               - build_u16
