@@ -23,6 +23,9 @@ references:
                   --deploy-url-prefix="https://$ZIMBRA_CI_DEPLOY_HOSTNAME/$ZIMBRA_CI_DEPLOY_PATH" \
                   --git-default-branch="$ZIMBRA_CI_GIT_DEFAULT_BRANCH" \
                   "${ZIMBRA_CI_OVERRIDES[@]}" \
+                  --git-overrides="zm-web-client.branch=feature/universal-ui" \
+                  --git-overrides="zm-ajax.branch=feature/universal-ui" \
+                  --git-overrides="zm-zimlets.branch=feature/universal-ui" \
                   --build-os="$ZIMBRA_BUILD_OS" \
                   --build-no="$CIRCLE_BUILD_NUM" \
                   --build-ts="$(date "+%Y%m%d%M%H%S")" \
